@@ -1,0 +1,284 @@
+﻿<phone:PhoneApplicationPage 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" 
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
+    x:Class="modelOne.MainPage"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False" mc:Ignorable="d">
+
+    
+<!-- DATA TEMPLATE
+    <phone:PhoneApplicationPage.Resources>
+        <DataTemplate x:Key="list">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <Image Grid.Column="0"
+                    Source="{Binding sadfasdf}"
+                    Stretch="UniformToFill" />
+                <TextBlock x:Name="item_ONE_name" Grid.Column="1"
+                    Text="{Binding asdf}"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                <TextBlock Grid.Column="2"
+                    Text="{Binding asdf}"
+                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                    Margin="6,6,12,6" Foreground="#FFF90068"/>
+            </Grid>
+            
+        </DataTemplate>
+        
+    </phone:PhoneApplicationPage.Resources>
+-->   
+    
+    
+    <!--LayoutRoot is the root grid where all page content is placed-->
+    <Grid x:Name="OpeningPage" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        
+        <!-- MAP -->
+        <maps:Map x:Name="Map" Grid.Row="0"
+            LandmarksEnabled="true" PedestrianFeaturesEnabled="true"
+            VerticalAlignment="Center"
+            Height="400"
+            Width="480" 
+            Margin="0,0,0,0"/>
+
+        <!-- HEADER/TITLE -->
+        <Grid x:Name="Header" Grid.Row="1" Background="#F90068">
+            <!-- THEME COLOURS: #CE2C2A #F90068 #F90592 #0291F8 #F45C23 -->
+            <TextBlock x:Name="Nearby"  
+                TextWrapping="Wrap" 
+                Text="Buildings closest to you" 
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Margin="12,6,6,6" 
+                FontSize="24" Foreground="WhiteSmoke" FontWeight="Bold" FontFamily="Segoe WP SemiLight"/>
+        </Grid>
+        
+        <!-- LOCATIONS-->
+        <!-- 
+            DATA BINDING ELEMENTS
+                for IMAGE, NAME, DISTANCE
+                    DISTANCE will have to be calculated
+        -->
+
+        <ScrollViewer x:Name="Locations" Grid.Row="2" Margin="0,0,0,0" Background="#FFDFDFDF">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="96"/>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="90"/>
+                    <RowDefinition Height="90"/>
+                </Grid.RowDefinitions>
+                
+                <!-- ROW ONE -->
+                <Grid x:Name="item_ONE" Background="#FFCB87CB" Opacity="1.0" Margin="12,12,12,6" Grid.Row="0" MouseLeftButtonDown="first_Closest_Building_Pressed">
+                    <!-- define the column sizes-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Image 
+                        Grid.Column="0"
+                        Source="/Assets/045.jpg" 
+                        Stretch="UniformToFill" />
+                    <TextBlock x:Name="item_ONE_name" Text="Roberts Building"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                    <TextBlock Text="nearby"
+                        Grid.Column="2"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Margin="6,6,12,6" Foreground="#FFF90068"/>
+                </Grid>
+
+                <!-- ROW TWO -->
+                <Grid x:Name="item_TWO" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="1"  MouseLeftButtonDown="second_Closest_Building_Pressed">
+                    <!-- define the column sizes-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image 
+                        Grid.Column="0"
+                        Source="/Assets/040.jpg" 
+                        Stretch="UniformToFill" />
+                    <TextBlock x:Name="item_TWO_name" Text="Foster Court"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                    <TextBlock Text="0.3 km"
+                        Grid.Column="2"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Margin="6,6,12,6" Foreground="#FFF90068"/>
+                </Grid>
+
+                <!-- ROW THREE -->
+                <Grid x:Name="item_THREE" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="2"  MouseLeftButtonDown="third_Closest_Building_Pressed">
+                    <!-- define the column sizes-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image 
+                        Grid.Column="0"
+                        Source="/Assets/UCL.jpg" 
+                        Stretch="UniformToFill" />
+                    <TextBlock x:Name="item_THREE_name" Text="South Cloisters"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                    <TextBlock Text="0.5 km"
+                        Grid.Column="2"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Margin="6,6,12,6" Foreground="#FFF90068"/>
+                </Grid>
+
+                <!-- ROW FOUR -->
+                <Grid x:Name="item_FOUR" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="3">
+                    <!-- define the column sizes-->
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="75"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Image 
+                        Grid.Column="0"
+                        Source="/Assets/040.jpg" 
+                        Stretch="UniformToFill" />
+                    <TextBlock Text="sampe"
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                    <TextBlock Text="0.5 km"
+                        Grid.Column="2"
+                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                        Margin="6,6,12,6" Foreground="#FFF90068"/>
+                </Grid>
+
+
+        <!-- 
+            OTHER UI. fills out the grid rather than the cards UI
+                
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="75"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="75"/>
+            </Grid.RowDefinitions>
+            <Image 
+                Grid.Column="0" Grid.Row="0"
+                Source="/Assets/045.jpg" 
+                Margin="6,6,6,6"
+                Stretch="UniformToFill" />
+            <TextBlock Text="Roberts Building"
+                Grid.Row="0" Grid.Column="1"
+                VerticalAlignment="Center"
+                Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+            <TextBlock Text="nearby"
+                Grid.Column="2" Grid.Row="0"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Margin="6,6,12,6" Foreground="#FFF90068"/>
+            
+            <Image 
+                Grid.Column="0" Grid.Row="1"
+                Source="/Assets/040.jpg" 
+                Margin="6,6,6,6"
+                Stretch="UniformToFill" />
+            <TextBlock Text="Foster Court"
+                Grid.Row="1" Grid.Column="1"
+                       VerticalAlignment="Center"
+                Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+            <TextBlock Text="0.3km"
+                Grid.Column="2" Grid.Row="1"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Margin="6,6,12,6" Foreground="#FFF90068"/>
+
+            <Image 
+                Grid.Column="0" Grid.Row="2"
+                Source="/Assets/UCL.jpg" 
+                Margin="6,6,6,6"
+                Stretch="UniformToFill" />
+            <TextBlock Text="South Cloisters"
+                Grid.Row="2" Grid.Column="1"
+                VerticalAlignment="Center"
+                Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+             <TextBlock Text="0.5km"
+                Grid.Column="2" Grid.Row="2"
+                VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                Margin="6,6,12,6" Foreground="#FFF90068"/>-->    
+            </Grid>
+        </ScrollViewer>
+
+        <!-- LOCALIZATION NOTE:
+            To localize the displayed strings copy their values to appropriately named
+            keys in the app's neutral language resource file (AppResources.resx) then
+            replace the hard-coded text value between the attributes' quotation marks
+            with the binding clause whose path points to that string name.
+
+            For example:
+
+                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+
+            This binding points to the template's string resource named "ApplicationTitle".
+
+            Adding supported languages in the Project Properties tab will create a
+            new resx file per language that can carry the translated values of your
+            UI strings. The binding in these examples will cause the value of the
+            attributes to be drawn from the .resx file that matches the
+            CurrentUICulture of the app at run time.
+         -->
+    </Grid>
+
+    <!-- APPLICATION BAR -->
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="AppBar"
+            IsVisible="True" 
+            IsMenuEnabled="True"
+            Opacity="0.90">
+            
+            <shell:ApplicationBarIconButton x:Name="playButton"
+                IconUri="/Assets/transport.play.png" 
+                Text="play"
+                Click="player_button_click"/>
+           
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="Road" Click="Road_Click"/>
+                <shell:ApplicationBarMenuItem Text="settings"/>
+                <shell:ApplicationBarMenuItem Text="about"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</phone:PhoneApplicationPage>
