@@ -38,13 +38,14 @@
                 <StackPanel 
                     x:Name="StackPanel" 
                     HorizontalAlignment="Left" VerticalAlignment="Top"
-                    Height="500" Width="480">
+                    Height="510" Width="480">
 
+                    <!-- SAMPLE -->
                     <Button Content="Record" 
-                            HorizontalAlignment="Center" VerticalAlignment="Top" 
-                            Height="80" Width="248" Margin="0,6,0,0" 
-                            Foreground="#FFF90068" BorderBrush="#F90068"
-                            Background="White"/>
+                		HorizontalAlignment="Center" VerticalAlignment="Top" 
+                		Height="72" Width="322" Margin="42,6,116,0" 
+                		Foreground="#FFF90068" BorderBrush="#F90068"
+                		Background="White"/>
 
                     <!-- SAMPLE -->
                     <ScrollViewer x:Name="Locations" Margin="12,0,12,0" Background="White">
@@ -66,17 +67,17 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image 
-                                    Grid.Column="0"
-                                    Source="/Assets/music-128.png" 
-                                    Stretch="UniformToFill" />
+                					Grid.Column="0"
+                					Source="/Assets/headp.png" 
+                					Stretch="UniformToFill" />
                                 <TextBlock x:Name="item_ONE_name" Text="track 1"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                					Grid.Column="1"
+                					VerticalAlignment="Center"
+                					Style="{StaticResource PhoneTextLargeStyle}" Margin="12,21,48,14" Foreground="#FFF90068" />
                                 <TextBlock Text="nearby"
-                                    Grid.Column="2"
-                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                    Margin="6,6,12,6" Foreground="#FFF90068"/>
+                					Grid.Column="1"
+                					VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                					Margin="0,0,61,10" Foreground="#FFF90068" Grid.ColumnSpan="2"/>
                             </Grid>
 
                             <!-- ROW TWO -->
@@ -89,21 +90,21 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image 
-                                    Grid.Column="0"
-                                    Source="/Assets/music-128.png" 
-                                    Stretch="UniformToFill" />
+                					Grid.Column="0"
+                					Source="/Assets/headp.png" 
+                					Stretch="UniformToFill" />
                                 <TextBlock x:Name="item_TWO_name" Text="track 2"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                					Grid.Column="1"
+                					VerticalAlignment="Center"
+                					Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
                                 <TextBlock Text="0.3 km"
-                                    Grid.Column="2"
-                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                    Margin="6,6,12,6" Foreground="#FFF90068"/>
+                					Grid.Column="1"
+                					VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                					Margin="0,0,60,10" Foreground="#FFF90068"/>
                             </Grid>
 
                             <!-- ROW THREE -->
-                            <Grid x:Name="item_THREE" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="2"  MouseLeftButtonDown="third_track_Pressed">
+                            <Grid x:Name="item_THREE" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="2"  MouseLeftButtonDown="play_pause_Button">
                                 <!-- define the column sizes-->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="75"/>
@@ -112,17 +113,17 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image 
-                                    Grid.Column="0"
-                                    Source="/Assets/music-128.png" 
-                                    Stretch="UniformToFill" />
+                					Grid.Column="0"
+                					Source="/Assets/headp.png" 
+                					Stretch="UniformToFill" />
                                 <TextBlock x:Name="item_THREE_name" Text="track 3"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                					Grid.Column="1"
+                					VerticalAlignment="Center"
+                					Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
                                 <TextBlock Text="0.5 km"
-                                    Grid.Column="2"
-                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                    Margin="6,6,12,6" Foreground="#FFF90068"/>
+                					Grid.Column="1"
+                					VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                					Margin="0,0,60,10" Foreground="#FFF90068" Grid.ColumnSpan="2"/>
                             </Grid>
 
                             <!-- ROW FOUR -->
@@ -135,17 +136,17 @@
                                 </Grid.ColumnDefinitions>
 
                                 <Image 
-                                    Grid.Column="0"
-                                    Source="/Assets/music-128.png" 
-                                    Stretch="UniformToFill" />
+                					Grid.Column="0"
+                					Source="/Assets/music-128.png" 
+                					Stretch="UniformToFill" />
                                 <TextBlock Text="track sample"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
+                					Grid.Column="1"
+                					VerticalAlignment="Center"
+                					Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
                                 <TextBlock Text="0.5 km"
-                                    Grid.Column="2"
-                                    VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                                    Margin="6,6,12,6" Foreground="#FFF90068"/>
+                					Grid.Column="2"
+                					VerticalAlignment="Bottom" HorizontalAlignment="Right"
+                					Margin="6,6,12,6" Foreground="#FFF90068"/>
                             </Grid>
                         </Grid>
                     </ScrollViewer>
@@ -180,7 +181,7 @@
         <!-- PERSISTENT TRACK PLAYER-->
         <Grid x:Name="TrackPlayer" 
               HorizontalAlignment="Center" VerticalAlignment="Bottom" 
-              Height="100" Width="480" 
+              Height="110" Width="480" 
               Background="White" Margin="0,0,0,-115" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -191,7 +192,7 @@
             <Image 
                 Grid.Column="0"
                 Height="90" Width="90"
-                Source="/Assets/music-128.png" 
+                Source="/Assets/headp.png" 
                 Stretch="UniformToFill" RenderTransformOrigin="1,0" Margin="6" />
             
             <Grid Grid.Column="1">
@@ -233,13 +234,26 @@
             </Grid>
 
             <!-- Media Button -->
-            <Image x:Name="mediaButton" Grid.Column="2"
-                Source="/Assets/play.colour.square.png" Margin="6" />
-
+            <Image x:Name="mediaButtonPlay" Grid.Column="1" MouseLeftButtonDown="play_pause_Button" Visibility="Visible"
+                Source="/Assets/playcoloursquare.png" Margin="0,0,0,2" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="119" />
+          
+            <Image x:Name="mediaButtonPause" Grid.Column="1" MouseLeftButtonDown="play_pause_Button" Visibility="Collapsed"
+                Source="/Assets/pause.light.png" Margin="0,0,0,2" HorizontalAlignment="Right" Grid.ColumnSpan="2" Width="119" />
 
         </Grid>
 
-        
+       
+
+
     </Grid>
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
 </phone:PhoneApplicationPage>

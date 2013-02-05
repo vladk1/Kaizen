@@ -62,25 +62,7 @@ namespace modelOne
 
             InitializeComponent();
 
-            PushpinMapLayer = new MapLayer();
-            Map.Layers.Add(PushpinMapLayer);
-
-            positionCoord = (App.Current as App).lastUserLocation;
-            if (positionCoord != null)
-            {
-               
-
-                Map.Center = positionCoord;
-
-                Map.ZoomLevel = 19;
-
-                if (MyOverlay != null)
-                    PushpinMapLayer.Remove(MyOverlay);
-
-                MyOverlay = putOverlayOnMap(positionCoord, MyOverlay);
-
-                PushpinMapLayer.Add(MyOverlay);
-            }
+            updateLocationMarker();
 
             getLocation();
 
@@ -92,7 +74,7 @@ namespace modelOne
 
         }
 
-
+       
 
         # region Navigation part of the project
 
@@ -139,6 +121,10 @@ namespace modelOne
         {
            // PushpinMapLayer = new MapLayer();
            // Map.Layers.Add(PushpinMapLayer);
+            
+
+            updatePlayPauseButtons();
+            
             base.OnNavigatedTo(e);
         }
 
@@ -344,17 +330,68 @@ namespace modelOne
 
         #endregion
 
+
+
+        // we have this function so after user will come back to the main menu, he will see last geolocation, while current one is updating
+        private void updateLocationMarker()
+        {
+            PushpinMapLayer = new MapLayer();
+            Map.Layers.Add(PushpinMapLayer);
+
+            positionCoord = (App.Current as App).lastUserLocation;
+            if (positionCoord != null)
+            {
+
+
+                Map.Center = positionCoord;
+
+                Map.ZoomLevel = 19;
+
+                if (MyOverlay != null)
+                    PushpinMapLayer.Remove(MyOverlay);
+
+                MyOverlay = putOverlayOnMap(positionCoord, MyOverlay);
+
+                PushpinMapLayer.Add(MyOverlay);
+            }
+        }
+
+        // identify application bar button, if musicPlay(global bool variable responsible to identify audio file is playing or not) 
+        //is true then make a pause button and vice versa
+        private void updatePlayPauseButtons()
+        {
+            ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
+            if ((App.Current as App).musicPlay == true)
+            {
+                btn.IconUri = new Uri("/Assets/transport.pause.png", UriKind.Relative);
+                btn.Text = "pause";
+            }
+            else if ((App.Current as App).musicPlay == false)
+            {
+                btn.IconUri = new Uri("/Assets/transport.play.png", UriKind.Relative);
+                btn.Text = "play";
+            }
+            else
+            {
+                (App.Current as App).musicPlay = false;
+                btn.IconUri = new Uri("/Assets/transport.play.png", UriKind.Relative);
+                btn.Text = "play";
+            }
+        }
+
         private void player_button_click(object sender, EventArgs e)
         {
             ApplicationBarIconButton btn = (ApplicationBarIconButton)ApplicationBar.Buttons[0];
 
             if (btn.Text == "play")
             {
+                (App.Current as App).musicPlay = true;
                 btn.Text = "pause";
                 btn.IconUri = new Uri("/Assets/transport.pause.png", UriKind.Relative);
             }
             else if (btn.Text == "pause")
             {
+                (App.Current as App).musicPlay = false;
                 btn.Text = "play";
                 btn.IconUri = new Uri("/Assets/transport.play.png", UriKind.Relative);
             }

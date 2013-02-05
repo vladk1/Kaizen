@@ -84,6 +84,7 @@ namespace modelOne
 
         // global variable
         public GeoCoordinate lastUserLocation { get; set; }
+        public bool musicPlay { get; set; }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched

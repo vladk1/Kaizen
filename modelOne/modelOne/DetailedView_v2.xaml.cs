@@ -25,8 +25,25 @@ namespace modelOne
                 detailed_page_title.Title = selectedIndex;
                 // DataContext = App.ViewModel.Items[index];
             }
+
+
+            updatePlayPauseButtons();
         }
 
+        private void updatePlayPauseButtons()
+        {
+            if ((App.Current as App).musicPlay == true)
+            {
+                mediaButtonPlay.Visibility = System.Windows.Visibility.Collapsed;
+                mediaButtonPause.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if ((App.Current as App).musicPlay == false)
+            {
+                mediaButtonPlay.Visibility = System.Windows.Visibility.Visible;
+                mediaButtonPause.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else (App.Current as App).musicPlay = false;
+        }
 
         private void first_track_Pressed(object sender, RoutedEventArgs e)
         {
@@ -42,6 +59,29 @@ namespace modelOne
         {
 
         }
+
+
+        private void play_pause_Button(object sender, RoutedEventArgs e)
+        {
+
+
+            if ((App.Current as App).musicPlay == true)
+            {
+               // play_btn.Text = "pause";
+               // play_btn.IconUri = new Uri("/Assets/transport.pause.png", UriKind.Relative);
+                mediaButtonPlay.Visibility = System.Windows.Visibility.Visible;
+                mediaButtonPause.Visibility = System.Windows.Visibility.Collapsed;
+                (App.Current as App).musicPlay = false;
+                
+            }
+            else if ((App.Current as App).musicPlay == false)
+            {
+                mediaButtonPlay.Visibility = System.Windows.Visibility.Collapsed;
+                mediaButtonPause.Visibility = System.Windows.Visibility.Visible;
+                (App.Current as App).musicPlay = true;
+            }
+        }
+       
 
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
