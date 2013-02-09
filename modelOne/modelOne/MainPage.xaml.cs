@@ -41,8 +41,7 @@ namespace modelOne
 
         int firstRun = 0;
 
-        // Timer for updating the UI
-        DispatcherTimer _timer;
+        
 
         // Indexes into the array of ApplicationBar.Buttons
         const int downloadButton = 0;
@@ -56,11 +55,21 @@ namespace modelOne
         public double Longitude;
 
 
+       // int mediaNumber = 0;
+
         // Constructor
         public MainPage()
         {
 
+
+
             InitializeComponent();
+
+
+
+
+
+
 
             updateLocationMarker();
 
@@ -74,9 +83,23 @@ namespace modelOne
 
         }
 
-       
 
-        # region Navigation part of the project
+        // Creating a MapLayer and adding the MapOverlay to it
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // PushpinMapLayer = new MapLayer();
+            // Map.Layers.Add(PushpinMapLayer);
+
+
+            updatePlayPauseButtons();
+
+            base.OnNavigatedTo(e);
+        }
+
+
+
+
+        # region <<<<< Navigation  part  of  the  project >>>>>
 
 
         // Sweet function which finds user's current location
@@ -112,20 +135,6 @@ namespace modelOne
 
             
 
-        }
-
-
-
-        // Creating a MapLayer and adding the MapOverlay to it
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-           // PushpinMapLayer = new MapLayer();
-           // Map.Layers.Add(PushpinMapLayer);
-            
-
-            updatePlayPauseButtons();
-            
-            base.OnNavigatedTo(e);
         }
 
 
@@ -169,6 +178,7 @@ namespace modelOne
            // });
         }
 
+
         // For a current position change, set it up on the map by drawing a push pin object and zooms in to it.
         // Also checks if a current position satisfies to the marked audio zones, by calling <checkCoordinates> function which makes all comparison (look in audioPlayer part)
         void geolocator_PositionChanged(Geolocator sender, PositionChangedEventArgs args)
@@ -179,8 +189,6 @@ namespace modelOne
                 Latitude = args.Position.Coordinate.Latitude;
                 Longitude = args.Position.Coordinate.Longitude;
 
-                //  LatitudeTextBlock.Text = args.Position.Coordinate.Latitude.ToString("0.00");
-                //  LongitudeTextBlock.Text = args.Position.Coordinate.Longitude.ToString("0.00");
 
 
                 // Unfortunately, the Location API works with Windows.Devices.Geolocation.Geocoordinate objeccts
@@ -197,17 +205,12 @@ namespace modelOne
                     VerticalAccuracy = args.Position.Coordinate.AltitudeAccuracy.HasValue ? args.Position.Coordinate.AltitudeAccuracy.Value : 0.0
                 };
 
+
+
                 // Center the map on the new location
                 this.Map.Center = positionCoord;
 
                 this.Map.ZoomLevel = 19;
-
-                //// Shorthand way of doing the above
-                //GeoCoordinateEx gex = new GeoCoordinateEx();
-                //gex = args.Position.Coordinate;
-                //this.MyMap.Center = gex.GeoCoordinate;
-                //// ... or using the Map extension method:
-                //this.MyMap.SetCenter(args.Position.Coordinate);    
 
 
                 if (MyOverlay != null)
@@ -224,10 +227,59 @@ namespace modelOne
                 // Add the MapOverlay containing the pushpin to the MapLayer
                 this.PushpinMapLayer.Add(MyOverlay);
 
-
-
-
                 locationDrawPushpin(args);
+
+
+
+
+
+                double[] geoPoint1;
+                double[] geoPoint2;
+                double[] geoPoint3;
+                double[] geoPoint4;
+
+
+                double[][] four_geoPoints;
+                four_geoPoints = new double[4][];
+
+                geoPoint1 = new double[2];
+                geoPoint2 = new double[2];
+                geoPoint3 = new double[2];
+                geoPoint4 = new double[2];
+
+
+               
+
+               // 4 points algorithm usage 
+                double[][] geoCoordinateCode;
+                geoCoordinateCode = new double[2][];
+
+                AudioSet setSong = new AudioSet();
+                getAudioGeoPosition getAudioGeoPoint = new getAudioGeoPosition();
+
+                int songNumber = 1;
+                int exitLoop = 0; //depends if the song starting playing in checkCoordinates function
+
+
+                while ((songNumber < 2) && (exitLoop != 1))
+                {
+                    four_geoPoints = getAudioGeoPoint.getFourGeoPoints(songNumber);
+
+                    geoPoint1 = four_geoPoints[0];
+                    geoPoint2 = four_geoPoints[1];
+                    geoPoint3 = four_geoPoints[2];
+                    geoPoint4 = four_geoPoints[3];
+
+                    geoCoordinateCode = setSong.setLocationSquareFormula(geoPoint1, geoPoint2, geoPoint3, geoPoint4);
+
+                    CheckGeoToPlayMusic checkUser = new CheckGeoToPlayMusic();
+                    exitLoop = checkUser.checkCoordinates(sender, args, geoCoordinateCode, songNumber);
+
+                    songNumber++;
+                }
+
+
+                
 
 
                 // Show progress indicator while map resolves to new position
@@ -237,6 +289,7 @@ namespace modelOne
                 SystemTray.SetProgressIndicator(this, pi);
             });
         }
+
 
         void locationDrawPushpin(PositionChangedEventArgs args)
         {
@@ -280,13 +333,10 @@ namespace modelOne
 
         }
 
+
         private MapOverlay putOverlayOnMap(GeoCoordinate positionCoord, MapOverlay MyOverlay)
         {
-            //?
-
             
-
-
             MyOverlay = new MapOverlay();
             // firstRun = 1;
             TakeUserPushPin takePushpin = new TakeUserPushPin();
@@ -300,7 +350,6 @@ namespace modelOne
         }
 
 
-
         private void MapResolveCompleted(object sender, MapResolveCompletedEventArgs e)
         {
             // Hide progress indicator
@@ -309,24 +358,6 @@ namespace modelOne
             SystemTray.SetProgressIndicator(this, null);
         }
 
-
-
-        
-
-        void ZoomIn(object sender, EventArgs e)
-        {
-            if (Map.ZoomLevel < 20)
-            {
-                Map.ZoomLevel++;
-            }
-        }
-        void ZoomOut(object sender, EventArgs e)
-        {
-            if (Map.ZoomLevel > 1)
-            {
-                Map.ZoomLevel--;
-            }
-        }
 
         #endregion
 
@@ -355,6 +386,11 @@ namespace modelOne
                 PushpinMapLayer.Add(MyOverlay);
             }
         }
+
+
+
+
+        #region <<<<< Buttons  Click  Capture >>>>>
 
         // identify application bar button, if musicPlay(global bool variable responsible to identify audio file is playing or not) 
         //is true then make a pause button and vice versa
@@ -397,7 +433,7 @@ namespace modelOne
             }
         }
 
-        void Road_Click(object sender, EventArgs args)
+        private void Road_Click(object sender, EventArgs args)
         {
             Map.CartographicMode = MapCartographicMode.Road;
         }
@@ -436,6 +472,8 @@ namespace modelOne
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/DetailedView_v2.xaml?selectedItem=" + item_THREE_name.Text, UriKind.Relative));
         }
+
+        #endregion
     }
 }
 

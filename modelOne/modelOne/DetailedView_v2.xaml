@@ -41,11 +41,6 @@
                     Height="510" Width="480">
 
                     <!-- SAMPLE -->
-                    <Button Content="Record" 
-                		HorizontalAlignment="Center" VerticalAlignment="Top" 
-                		Height="72" Width="322" Margin="42,6,116,0" 
-                		Foreground="#FFF90068" BorderBrush="#F90068"
-                		Background="White"/>
 
                     <!-- SAMPLE -->
                     <ScrollViewer x:Name="Locations" Margin="12,0,12,0" Background="White">
@@ -153,6 +148,14 @@
 
                 </StackPanel>
             </phone:PanoramaItem>
+
+
+
+            <!--Panorama item two-->
+            <phone:PanoramaItem x:Name="recorder" Header="Record">
+                <Button x:Name="recorderButton" Click="recorder_Button_Click"></Button>
+            </phone:PanoramaItem>
+
 
             <!--Panorama item two-->
             <phone:PanoramaItem x:Name="Info" Header="info">

@@ -10,6 +10,26 @@ using modelOne.Resources;
 using modelOne.ViewModels;
 using System.Device.Location;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using Microsoft.Phone.BackgroundAudio;
+using System.Windows.Resources;
+using System.IO.IsolatedStorage;
+
+
+
 namespace modelOne
 {
     public partial class App : Application
@@ -43,6 +63,9 @@ namespace modelOne
         /// </summary>
         public App()
         {
+
+            CopyToIsolatedStorage();
+
             // Global handler for uncaught exceptions.
             UnhandledException += Application_UnhandledException;
 
@@ -82,9 +105,109 @@ namespace modelOne
         {
         }
 
-        // global variable
+        // global variables
         public GeoCoordinate lastUserLocation { get; set; }
         public bool musicPlay { get; set; }
+
+        
+        public AudioTrack prev_mediaElement
+        {
+            get;
+
+            set;
+        }
+        public AudioTrack saveSong2
+        {
+            get;
+
+            set;
+        }
+        public AudioTrack saveSong1
+        {
+            get;
+
+            set;
+        }
+        public AudioTrack mediaElement
+        {
+            get;
+
+            set;
+        }
+
+        public int myMediaElement1Sign
+        {
+            get;
+            set;
+        }
+        public List<AudioTrack> myMediaPlayList1
+        {
+            get;
+            set;
+        }
+
+        public int myMediaElement2Sign
+        {
+            get;
+            set;
+        }
+        public List<AudioTrack> myMediaPlayList2
+        {
+            get;
+            set;
+        }
+
+        public BackgroundAudioPlayer MainAudioPlayer
+        {
+            get;
+            set;
+        }
+
+        public int mediaNumber
+        {
+            get;
+            set;
+        }
+
+        public int currentTrackNumber
+        {
+            get;
+            set;
+        }
+
+
+
+        private void CopyToIsolatedStorage()
+        {
+            using (IsolatedStorageFile storage = IsolatedStorageFile.GetUserStoreForApplication())
+            {
+                // Copy audio files to isolated storage
+                string[] files = new string[] { "acdc.mp3", "Ring01.wma", "ACDCBackInBlack.mp3" };
+
+                foreach (var _fileName in files)
+                {
+                    if (!storage.FileExists(_fileName))
+                    {
+                        string _filePath = "Songs/" + _fileName;
+                        StreamResourceInfo resource = Application.GetResourceStream(new Uri(_filePath, UriKind.Relative));
+
+                        using (IsolatedStorageFileStream file = storage.CreateFile(_fileName))
+                        {
+                            int chunkSize = 4096;
+                            byte[] bytes = new byte[chunkSize];
+                            int byteCount;
+
+                            while ((byteCount = resource.Stream.Read(bytes, 0, chunkSize)) > 0)
+                            {
+                                file.Write(bytes, 0, byteCount);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+            
+
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched

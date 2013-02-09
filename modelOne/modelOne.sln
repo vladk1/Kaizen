@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Phone
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "modelOne", "modelOne\modelOne.csproj", "{BB9A1B32-EA46-4753-BD97-57EB17BE4B06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioPlaybackAgent2", "AudioPlaybackAgent2\AudioPlaybackAgent2.csproj", "{9052C144-4271-4611-ADBD-5E1EC40BA26E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,18 @@ Global
 		{BB9A1B32-EA46-4753-BD97-57EB17BE4B06}.Release|x86.ActiveCfg = Release|x86
 		{BB9A1B32-EA46-4753-BD97-57EB17BE4B06}.Release|x86.Build.0 = Release|x86
 		{BB9A1B32-EA46-4753-BD97-57EB17BE4B06}.Release|x86.Deploy.0 = Release|x86
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Debug|ARM.ActiveCfg = Debug|ARM
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Debug|ARM.Build.0 = Debug|ARM
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Debug|x86.ActiveCfg = Debug|x86
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Debug|x86.Build.0 = Debug|x86
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Release|ARM.ActiveCfg = Release|ARM
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Release|ARM.Build.0 = Release|ARM
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Release|x86.ActiveCfg = Release|x86
+		{9052C144-4271-4611-ADBD-5E1EC40BA26E}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

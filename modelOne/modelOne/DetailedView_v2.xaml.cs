@@ -7,14 +7,55 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.Phone.BackgroundAudio;
+using System.Windows.Threading;
 
 namespace modelOne
 {
+
     public partial class PivotPage1 : PhoneApplicationPage
     {
+        string[] updatePlayerArray;
+       
+
+        // Timer for updating the UI
+        DispatcherTimer _timer;
+
         public PivotPage1()
         {
+            
             InitializeComponent();
+
+             // Initialize a time to update every half-second
+            _timer = new DispatcherTimer();
+
+            UpdatePlayerState updateVariable = new UpdatePlayerState();
+
+            _timer.Interval = TimeSpan.FromSeconds(0.5);
+            _timer.Tick += new EventHandler(UpdateState);
+
+
+            //SetSongforPlayer(mediaNumber);
+
+          //  UpdateState(null, null);
+
+        }
+
+        void UpdateState(object sender, EventArgs e)
+        {
+            UpdatePlayerState updateState = new UpdatePlayerState();
+            updatePlayerArray = updateState.UpdateState(null, null);
+
+            trackTitle.Text = updatePlayerArray[0];
+
+
+            positionIndicator.Value = Double.Parse(updatePlayerArray[1]);
+            //string positionIndicator = ""; // positionIndicator.Value
+
+            textPosition.Text = updatePlayerArray[2];
+
+            textRemaining.Text = updatePlayerArray[3];
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -29,6 +70,38 @@ namespace modelOne
 
             updatePlayPauseButtons();
         }
+
+        public void Instance_PlayStateChanged(object sender, EventArgs e)
+        {
+
+            switch ((App.Current as App).MainAudioPlayer.PlayerState)
+            {
+
+                case PlayState.Playing:
+                    positionIndicator.IsIndeterminate = false;
+                    positionIndicator.Maximum = (App.Current as App).mediaElement.Duration.TotalSeconds;
+
+                    UpdateState(null, null);
+                    _timer.Start();
+                    break;
+
+                case PlayState.Paused:
+
+                    UpdateState(null, null);
+                    _timer.Stop();
+
+                    break;
+
+            }
+
+        }
+            
+         
+       
+
+
+
+        #region <<<<< Buttons  Click  Capture >>>>>
 
         private void updatePlayPauseButtons()
         {
@@ -58,6 +131,11 @@ namespace modelOne
         private void third_track_Pressed(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void recorder_Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/VoiceRecorder.xaml", UriKind.Relative));
         }
 
 
@@ -92,5 +170,6 @@ namespace modelOne
            //e.Cancel = true;
         }
 
+        #endregion 
     }
 }

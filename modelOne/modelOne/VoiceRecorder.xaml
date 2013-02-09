@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
@@ -29,6 +30,7 @@
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
 
         </Grid>
+        <Button x:Name="btnRecord" Content="Start Recording" HorizontalAlignment="Left" Margin="78,184,0,0" Grid.Row="1" VerticalAlignment="Top" Height="252" Width="295" Click="Record_Click"/>
     </Grid>
 
 </phone:PhoneApplicationPage>

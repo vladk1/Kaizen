@@ -94,7 +94,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CurrentLocation.cs" />
+    <Compile Include="AudioGet.cs" />
+    <Compile Include="AudioSet.cs" />
+    <Compile Include="CheckGeoToPlayMusic.cs" />
+    <Compile Include="getAudioGeoPosition.cs" />
+    <Compile Include="RecordingClasses\BasicRecording.cs" />
     <Compile Include="DrawUserPushPin.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="MainPage.xaml.cs">
@@ -103,6 +107,27 @@
     <Compile Include="DetailedView_v2.xaml.cs">
       <DependentUpon>DetailedView_v2.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Service References\GeocodeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ImageryService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RouteService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\SearchService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="UpdatePlayerState.cs" />
     <Compile Include="VoiceRecorder.xaml.cs">
       <DependentUpon>VoiceRecorder.xaml</DependentUpon>
     </Compile>
@@ -145,10 +170,60 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Songs\acdc.mp3" />
+    <Content Include="Songs\ACDCBackInBlack.mp3" />
+    <Content Include="Songs\Ring01.wma" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Service References\GeocodeService\GeocodeService.wsdl" />
+    <None Include="Service References\GeocodeService\GeocodeService.xsd" />
+    <None Include="Service References\GeocodeService\GeocodeService1.wsdl" />
+    <None Include="Service References\GeocodeService\GeocodeService1.xsd" />
+    <None Include="Service References\GeocodeService\GeocodeService2.xsd" />
+    <None Include="Service References\GeocodeService\GeocodeService3.xsd" />
+    <None Include="Service References\GeocodeService\GeocodeService4.xsd" />
+    <None Include="Service References\ImageryService\ImageryService.wsdl" />
+    <None Include="Service References\ImageryService\ImageryService.xsd" />
+    <None Include="Service References\ImageryService\imageryservice1.wsdl" />
+    <None Include="Service References\ImageryService\ImageryService1.xsd" />
+    <None Include="Service References\ImageryService\ImageryService2.xsd" />
+    <None Include="Service References\ImageryService\ImageryService3.xsd" />
+    <None Include="Service References\ImageryService\ImageryService4.xsd" />
+    <None Include="Service References\ImageryService\ImageryService5.xsd" />
+    <None Include="Service References\RouteService\RouteService.wsdl" />
+    <None Include="Service References\RouteService\routeservice.xsd" />
+    <None Include="Service References\RouteService\routeservice1.wsdl" />
+    <None Include="Service References\RouteService\routeservice1.xsd" />
+    <None Include="Service References\RouteService\routeservice2.xsd" />
+    <None Include="Service References\RouteService\routeservice3.xsd" />
+    <None Include="Service References\SearchService\configuration91.svcinfo" />
+    <None Include="Service References\SearchService\configuration.svcinfo" />
+    <None Include="Service References\SearchService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\ImageryService\configuration91.svcinfo" />
+    <None Include="Service References\ImageryService\configuration.svcinfo" />
+    <None Include="Service References\ImageryService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\RouteService\configuration91.svcinfo" />
+    <None Include="Service References\RouteService\configuration.svcinfo" />
+    <None Include="Service References\RouteService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="ServiceReferences.ClientConfig" />
+    <None Include="Service References\SearchService\dev.wsdl" />
+    <None Include="Service References\SearchService\dev.xsd" />
+    <None Include="Service References\SearchService\dev1.xsd" />
+    <None Include="Service References\SearchService\dev2.xsd" />
+    <None Include="Service References\SearchService\schemas.xsd" />
+    <None Include="Service References\SearchService\schemas1.xsd" />
+    <None Include="Service References\SearchService\SearchService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\040.jpg" />
@@ -188,6 +263,12 @@
     <Content Include="Assets\transport.play.png" />
     <Content Include="Assets\UCL.jpg" />
     <Content Include="enterprise_earth_maps-128.png" />
+    <None Include="Service References\GeocodeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\GeocodeService\configuration.svcinfo" />
+    <None Include="Service References\GeocodeService\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\AppResources.resx">
@@ -207,6 +288,21 @@
     <Resource Include="SampleData\Locations\Locations_Files\image03.png" />
     <Resource Include="SampleData\Locations\Locations_Files\image04.png" />
     <Resource Include="SampleData\Locations\Locations_Files\image05.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\GeocodeService\" />
+    <WCFMetadataStorage Include="Service References\ImageryService\" />
+    <WCFMetadataStorage Include="Service References\RouteService\" />
+    <WCFMetadataStorage Include="Service References\SearchService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AudioPlaybackAgent2\AudioPlaybackAgent2.csproj">
+      <Project>{9052C144-4271-4611-ADBD-5E1EC40BA26E}</Project>
+      <Name>AudioPlaybackAgent2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />
