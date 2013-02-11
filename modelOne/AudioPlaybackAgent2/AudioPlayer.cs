@@ -13,28 +13,54 @@ namespace AudioPlaybackAgent2
         // What's the current track?
         static int currentTrackNumber = 0;
 
+        // What's the playlist?
+        static int currentPlayListNumber = 0;
+
         // A playlist made up of AudioTrack items.
-        private static List<AudioTrack> _playList = new List<AudioTrack>
+        public static List<AudioTrack> _playList1 = new List<AudioTrack>
         {
             new AudioTrack(new Uri("Ring01.wma", UriKind.Relative), 
-                            "Ringtone 2", 
+                            "Ringtone 1", 
                             "Windows Phone", 
                             "Windows Phone Ringtones", 
                             new Uri("shared/media/Ring02.jpg", UriKind.Relative)),
 
             new AudioTrack(new Uri("ACDCBackInBlack.mp3", UriKind.Relative), 
-                            "Ringtone 3", 
+                            "Ringtone 2", 
                             "Windows Phone", 
                             "Windows Phone Ringtones", 
                             new Uri("shared/media/Ring03.jpg", UriKind.Relative)),
 
-                            new AudioTrack(new Uri("acdc.mp3", UriKind.Relative), 
+                             new AudioTrack(new Uri("acdc.mp3", UriKind.Relative), 
                             "Ringtone acdc 3", 
                             "Windows Phone", 
                             "Windows Phone Ringtones", 
                             new Uri("shared/media/Ring03.jpg", UriKind.Relative))
+                     
+        };
 
-                            
+
+        public static List<AudioTrack> _playList2 = new List<AudioTrack>
+        {
+            
+                            new AudioTrack(new Uri("acdc.mp3", UriKind.Relative), 
+                            "Ringtone acdc 1", 
+                            "Windows Phone", 
+                            "Windows Phone Ringtones", 
+                            new Uri("shared/media/Ring03.jpg", UriKind.Relative)),
+
+                             new AudioTrack(new Uri("ACDCBackInBlack.mp3", UriKind.Relative), 
+                            "Ringtone 2", 
+                            "Windows Phone", 
+                            "Windows Phone Ringtones", 
+                            new Uri("shared/media/Ring03.jpg", UriKind.Relative)),
+
+                             new AudioTrack(new Uri("ACDCBackInBlack.mp3", UriKind.Relative), 
+                            "Ringtone 3", 
+                            "Windows Phone", 
+                            "Windows Phone Ringtones", 
+                            new Uri("shared/media/Ring03.jpg", UriKind.Relative))
+                
         };
 
 
@@ -75,8 +101,11 @@ namespace AudioPlaybackAgent2
         {
             // if (++currentTrackNumber >= _playList.Count)
             // {
+            
             currentTrackNumber++;
             // }
+
+          //  setTrack(player);
 
             //PlayTrack(player);
         }
@@ -88,10 +117,12 @@ namespace AudioPlaybackAgent2
         /// <param name="player">The BackgroundAudioPlayer</param>
         private void PlayPreviousTrack(BackgroundAudioPlayer player)
         {
-            if (--currentTrackNumber < 0)
-            {
-                currentTrackNumber = _playList.Count - 1;
-            }
+            //if (--currentTrackNumber < 0)
+            //{
+            //    currentTrackNumber = _playList.Count - 1;
+            //}
+            
+            currentPlayListNumber++;
 
             // PlayTrack(player);
         }
@@ -103,7 +134,7 @@ namespace AudioPlaybackAgent2
         /// <param name="player">The BackgroundAudioPlayer</param>
         private void PlayTrack(BackgroundAudioPlayer player)
         {
-            player.Track = _playList[currentTrackNumber];
+            setTrack(player);
             player.Play();
             //   if (PlayState.Paused == player.PlayerState)
             //   {
@@ -119,7 +150,26 @@ namespace AudioPlaybackAgent2
             //   }
 
         }
+        private void setTrack(BackgroundAudioPlayer player)
+        {
+            switch (currentPlayListNumber)
+            {
+                case 0:
+                    if (currentTrackNumber <= _playList1.Count-1)
+                    player.Track = _playList1[currentTrackNumber];
+                    break;
 
+                case 1:
+                    if (currentTrackNumber <= _playList1.Count - 1)
+                    player.Track = _playList2[currentTrackNumber];
+                    break;
+            }
+        }
+
+        private void CancelOutTrack(BackgroundAudioPlayer player)
+        {
+            currentTrackNumber = 0;
+        }
 
         /// <summary>
         /// Called when the playstate changes, except for the Error state (see OnError)
@@ -188,6 +238,10 @@ namespace AudioPlaybackAgent2
 
                 case UserAction.SkipNext:
                     PlayNextTrack(player);
+                    break;
+
+                case UserAction.Rewind:
+                    CancelOutTrack(player);
                     break;
             }
 

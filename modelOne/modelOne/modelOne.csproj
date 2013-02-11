@@ -94,10 +94,11 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AudioGet.cs" />
-    <Compile Include="AudioSet.cs" />
-    <Compile Include="CheckGeoToPlayMusic.cs" />
-    <Compile Include="getAudioGeoPosition.cs" />
+    <Compile Include="Z_GeoIdentifiers\AudioGet.cs" />
+    <Compile Include="Z_GeoIdentifiers\AudioSet.cs" />
+    <Compile Include="Z_GeoIdentifiers\CheckGeoToPlayMusic.cs" />
+    <Compile Include="Z_GeoIdentifiers\getAudioGeoPosition.cs" />
+    <Compile Include="Z_GeoIdentifiers\LocationCheck.cs" />
     <Compile Include="RecordingClasses\BasicRecording.cs" />
     <Compile Include="DrawUserPushPin.cs" />
     <Compile Include="LocalizedStrings.cs" />

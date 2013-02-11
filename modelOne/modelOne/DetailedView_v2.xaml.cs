@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.BackgroundAudio;
 using System.Windows.Threading;
+using AudioPlaybackAgent2;
 
 namespace modelOne
 {
@@ -16,8 +17,9 @@ namespace modelOne
     public partial class PivotPage1 : PhoneApplicationPage
     {
         string[] updatePlayerArray;
-       
 
+        bool musicPlay;
+        int playList;
         // Timer for updating the UI
         DispatcherTimer _timer;
 
@@ -61,25 +63,55 @@ namespace modelOne
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             string selectedIndex = "";
+           
             if (NavigationContext.QueryString.TryGetValue("selectedItem", out selectedIndex))
             {
                 detailed_page_title.Title = selectedIndex;
                 // DataContext = App.ViewModel.Items[index];
             }
 
+            musicPlay = (App.Current as App).musicPlay;
+            playList = (App.Current as App).currentAudioPlaylistNumber;
+
+            AudioTrack track;
+
+           // track = BackgroundAudioPlayer.Instance.Track;
+           // set_AudioList_Track_number(1);
+            
+
+            checkOut();
 
             updatePlayPauseButtons();
+        }
+
+        public void checkOut()
+        {
+            AudioTrack track1 = null;
+            AudioTrack track2 = null;
+            AudioTrack track3 = null;
+
+            track1 = AudioPlayer._playList1[0];
+            track2 = AudioPlayer._playList1[1];
+            track3 = AudioPlayer._playList1[2];
+
+
+            
+            item_ONE_name.Text = track1.Title;
+            item_TWO_name.Text = track2.Title;
+            item_THREE_name.Text = track3.Title;
         }
 
         public void Instance_PlayStateChanged(object sender, EventArgs e)
         {
 
-            switch ((App.Current as App).MainAudioPlayer.PlayerState)
+            switch (BackgroundAudioPlayer.Instance.PlayerState)
             {
 
                 case PlayState.Playing:
                     positionIndicator.IsIndeterminate = false;
-                    positionIndicator.Maximum = (App.Current as App).mediaElement.Duration.TotalSeconds;
+                    positionIndicator.Maximum = BackgroundAudioPlayer.Instance.Track.Duration.TotalSeconds; //.Duration.TotalSeconds
+
+                    musicPlay = true;
 
                     UpdateState(null, null);
                     _timer.Start();
@@ -87,23 +119,43 @@ namespace modelOne
 
                 case PlayState.Paused:
 
+                    musicPlay = false;
+
                     UpdateState(null, null);
                     _timer.Stop();
-
                     break;
 
             }
 
         }
-            
-         
+
+        private void set_AudioList_Track_number(int trackNumber)
+        {
+            int counter = 0;
+           // AudioTrack track;
+           // track = BackgroundAudioPlayer.Instance.Track;
+            while (counter < playList) // choose playList
+            {
+                BackgroundAudioPlayer.Instance.SkipPrevious();
+                counter++;
+            }
+            counter = 0;
+            while (counter < trackNumber-1) // chooseSongNumber
+            {
+                BackgroundAudioPlayer.Instance.SkipNext();
+                counter++;
+            }
+            //BackgroundAudioPlayer.Instance.SkipNext();
+
+           
+        }
        
 
 
 
         #region <<<<< Buttons  Click  Capture >>>>>
 
-        private void updatePlayPauseButtons()
+        /*private void updatePlayPauseButtons()
         {
             if ((App.Current as App).musicPlay == true)
             {
@@ -116,55 +168,93 @@ namespace modelOne
                 mediaButtonPause.Visibility = System.Windows.Visibility.Collapsed;
             }
             else (App.Current as App).musicPlay = false;
-        }
+        }*/
 
         private void first_track_Pressed(object sender, RoutedEventArgs e)
         {
-               
+            BackgroundAudioPlayer.Instance.Rewind();
+            set_AudioList_Track_number(1); // will play track 0  
+            BackgroundAudioPlayer.Instance.Play();
+            musicPlay = true;
+            updatePlayPauseButtons();
         }
 
         private void second_track_Pressed(object sender, RoutedEventArgs e)
         {
-
+            BackgroundAudioPlayer.Instance.Rewind();
+            set_AudioList_Track_number(2); // will play track 1
+            BackgroundAudioPlayer.Instance.Play();
+            musicPlay = true;
+            updatePlayPauseButtons();
         }
 
         private void third_track_Pressed(object sender, RoutedEventArgs e)
         {
-
+            BackgroundAudioPlayer.Instance.Rewind();
+            set_AudioList_Track_number(3); // will play track 2
+            BackgroundAudioPlayer.Instance.Play();
+            musicPlay = true;
+            updatePlayPauseButtons();
         }
+
+
+        
+
+        
+
 
         private void recorder_Button_Click(object sender, RoutedEventArgs e)
         {
+            (App.Current as App).musicPlay = musicPlay;
             NavigationService.Navigate(new Uri("/VoiceRecorder.xaml", UriKind.Relative));
         }
 
 
         private void play_pause_Button(object sender, RoutedEventArgs e)
         {
-
-
-            if ((App.Current as App).musicPlay == true)
+            if (musicPlay == true)
             {
-               // play_btn.Text = "pause";
-               // play_btn.IconUri = new Uri("/Assets/transport.pause.png", UriKind.Relative);
+                // play_btn.Text = "pause";
+                // play_btn.IconUri = new Uri("/Assets/transport.pause.png", UriKind.Relative);
                 mediaButtonPlay.Visibility = System.Windows.Visibility.Visible;
                 mediaButtonPause.Visibility = System.Windows.Visibility.Collapsed;
-                (App.Current as App).musicPlay = false;
-                
+                musicPlay = false;
+
+                BackgroundAudioPlayer.Instance.Pause();
+
             }
-            else if ((App.Current as App).musicPlay == false)
+            else if (musicPlay == false)
             {
                 mediaButtonPlay.Visibility = System.Windows.Visibility.Collapsed;
                 mediaButtonPause.Visibility = System.Windows.Visibility.Visible;
-                (App.Current as App).musicPlay = true;
+                musicPlay = true;
+
+                BackgroundAudioPlayer.Instance.Play();
             }
         }
-       
 
+        // if audio is playing that change some layout
+        private void updatePlayPauseButtons()
+        {
+            if (musicPlay == true)
+            {
+                mediaButtonPlay.Visibility = System.Windows.Visibility.Collapsed;
+                mediaButtonPause.Visibility = System.Windows.Visibility.Visible;
+            }
+            else if (musicPlay == false)
+            {
+                mediaButtonPlay.Visibility = System.Windows.Visibility.Visible;
+                mediaButtonPause.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else musicPlay = false;
+            
+
+        }
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             // do some stuff ...
+            (App.Current as App).musicPlay = musicPlay;
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             // cancel the navigation
            //e.Cancel = true;

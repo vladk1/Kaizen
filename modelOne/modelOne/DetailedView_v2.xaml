@@ -99,7 +99,7 @@
                             </Grid>
 
                             <!-- ROW THREE -->
-                            <Grid x:Name="item_THREE" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="2"  MouseLeftButtonDown="play_pause_Button">
+                            <Grid x:Name="item_THREE" Background="White" Opacity="1.0" Margin="12,6,12,6" Grid.Row="2"  MouseLeftButtonDown="third_track_Pressed">
                                 <!-- define the column sizes-->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="75"/>

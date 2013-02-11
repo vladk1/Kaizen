@@ -109,59 +109,7 @@ namespace modelOne
         public GeoCoordinate lastUserLocation { get; set; }
         public bool musicPlay { get; set; }
 
-        
-        public AudioTrack prev_mediaElement
-        {
-            get;
-
-            set;
-        }
-        public AudioTrack saveSong2
-        {
-            get;
-
-            set;
-        }
-        public AudioTrack saveSong1
-        {
-            get;
-
-            set;
-        }
-        public AudioTrack mediaElement
-        {
-            get;
-
-            set;
-        }
-
-        public int myMediaElement1Sign
-        {
-            get;
-            set;
-        }
-        public List<AudioTrack> myMediaPlayList1
-        {
-            get;
-            set;
-        }
-
-        public int myMediaElement2Sign
-        {
-            get;
-            set;
-        }
-        public List<AudioTrack> myMediaPlayList2
-        {
-            get;
-            set;
-        }
-
-        public BackgroundAudioPlayer MainAudioPlayer
-        {
-            get;
-            set;
-        }
+       
 
         public int mediaNumber
         {
@@ -170,6 +118,12 @@ namespace modelOne
         }
 
         public int currentTrackNumber
+        {
+            get;
+            set;
+        }
+
+        public int currentAudioPlaylistNumber
         {
             get;
             set;
