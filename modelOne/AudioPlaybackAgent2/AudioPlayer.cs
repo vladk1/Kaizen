@@ -99,15 +99,9 @@ namespace AudioPlaybackAgent2
         /// <param name="player">The BackgroundAudioPlayer</param>
         private void PlayNextTrack(BackgroundAudioPlayer player)
         {
-            // if (++currentTrackNumber >= _playList.Count)
-            // {
-            
+           
             currentTrackNumber++;
-            // }
-
-          //  setTrack(player);
-
-            //PlayTrack(player);
+           
         }
 
 
@@ -117,15 +111,10 @@ namespace AudioPlaybackAgent2
         /// <param name="player">The BackgroundAudioPlayer</param>
         private void PlayPreviousTrack(BackgroundAudioPlayer player)
         {
-            //if (--currentTrackNumber < 0)
-            //{
-            //    currentTrackNumber = _playList.Count - 1;
-            //}
             
             currentPlayListNumber++;
 
-            // PlayTrack(player);
-        }
+         }
 
 
         /// <summary>
@@ -136,20 +125,11 @@ namespace AudioPlaybackAgent2
         {
             setTrack(player);
             player.Play();
-            //   if (PlayState.Paused == player.PlayerState)
-            //   {
-            // If we're paused, we already have 
-            // the track set, so just resume playing.
-            //       player.Play();
-            //   }
-            //   else
-            //   {
-            // Set which track to play. When the TrackReady state is received 
-            // in the OnPlayStateChanged handler, call player.Play().
-            //       player.Track = _playList[currentTrackNumber];
-            //   }
-
+            
         }
+
+
+
         private void setTrack(BackgroundAudioPlayer player)
         {
             switch (currentPlayListNumber)

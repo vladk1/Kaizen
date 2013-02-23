@@ -109,7 +109,7 @@
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
-                    <TextBlock Text="nearby"
+                    <TextBlock x:Name="item_ONE_dist" Text="nearby"
                         Grid.Column="2"
                         VerticalAlignment="Bottom" HorizontalAlignment="Right"
                         Margin="6,6,12,6" Foreground="#FFF90068"/>
@@ -132,10 +132,10 @@
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
-                    <TextBlock Text="0.3 km"
-                        Grid.Column="2"
+                    <TextBlock x:Name="item_TWO_dist" Text="0.3 km"
+                        Grid.Column="1"
                         VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                        Margin="6,6,12,6" Foreground="#FFF90068"/>
+                        Margin="0,0,10,10" Foreground="#FFF90068" RenderTransformOrigin="-0.55,0.716" Grid.ColumnSpan="2"/>
                 </Grid>
 
                 <!-- ROW THREE -->
@@ -143,8 +143,7 @@
                     <!-- define the column sizes-->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="75"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="217"/>
                     </Grid.ColumnDefinitions>
 
                     <Image 
@@ -154,11 +153,10 @@
                     <TextBlock x:Name="item_THREE_name" Text="South Cloisters"
                         Grid.Column="1"
                         VerticalAlignment="Center"
-                        Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
-                    <TextBlock Text="0.5 km"
-                        Grid.Column="2"
-                        VerticalAlignment="Bottom" HorizontalAlignment="Right"
-                        Margin="6,6,12,6" Foreground="#FFF90068"/>
+                        Style="{StaticResource PhoneTextLargeStyle}" Margin="12,21,0,14" Foreground="#FFF90068" Height="43" />
+                    <TextBlock x:Name ="item_THREE_dist" Text="0.5 km"
+                        Grid.Column="1"
+                        Margin="307,37,-149,14" Foreground="#FFF90068" RenderTransformOrigin="0.81,0.336" HorizontalAlignment="Left" Width="59"/>
                 </Grid>
 
                 <!-- ROW FOUR -->
@@ -174,11 +172,11 @@
                         Grid.Column="0"
                         Source="/Assets/040.jpg" 
                         Stretch="UniformToFill" />
-                    <TextBlock Text="sampe"
+                    <TextBlock x:Name="item_FOUR_name" Text="sampe"
                         Grid.Column="1"
                         VerticalAlignment="Center"
                         Style="{StaticResource PhoneTextLargeStyle}" Margin="12,6,0,0" Foreground="#FFF90068" />
-                    <TextBlock Text="0.5 km"
+                    <TextBlock x:Name ="item_FOUR_dist" Text="0.5 km"
                         Grid.Column="2"
                         VerticalAlignment="Bottom" HorizontalAlignment="Right"
                         Margin="6,6,12,6" Foreground="#FFF90068"/>

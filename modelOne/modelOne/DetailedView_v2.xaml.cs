@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.BackgroundAudio;
 using System.Windows.Threading;
+
 using AudioPlaybackAgent2;
 
 namespace modelOne
@@ -155,23 +156,12 @@ namespace modelOne
 
         #region <<<<< Buttons  Click  Capture >>>>>
 
-        /*private void updatePlayPauseButtons()
-        {
-            if ((App.Current as App).musicPlay == true)
-            {
-                mediaButtonPlay.Visibility = System.Windows.Visibility.Collapsed;
-                mediaButtonPause.Visibility = System.Windows.Visibility.Visible;
-            }
-            else if ((App.Current as App).musicPlay == false)
-            {
-                mediaButtonPlay.Visibility = System.Windows.Visibility.Visible;
-                mediaButtonPause.Visibility = System.Windows.Visibility.Collapsed;
-            }
-            else (App.Current as App).musicPlay = false;
-        }*/
 
         private void first_track_Pressed(object sender, RoutedEventArgs e)
         {
+            (App.Current as App).currentAudioPlaylistNumber = (App.Current as App).AudioPlaylistNumber1;
+            playList = (App.Current as App).currentAudioPlaylistNumber;
+
             BackgroundAudioPlayer.Instance.Rewind();
             set_AudioList_Track_number(1); // will play track 0  
             BackgroundAudioPlayer.Instance.Play();
@@ -181,6 +171,9 @@ namespace modelOne
 
         private void second_track_Pressed(object sender, RoutedEventArgs e)
         {
+            (App.Current as App).currentAudioPlaylistNumber = (App.Current as App).AudioPlaylistNumber2;
+            playList = (App.Current as App).currentAudioPlaylistNumber;
+
             BackgroundAudioPlayer.Instance.Rewind();
             set_AudioList_Track_number(2); // will play track 1
             BackgroundAudioPlayer.Instance.Play();
@@ -190,6 +183,9 @@ namespace modelOne
 
         private void third_track_Pressed(object sender, RoutedEventArgs e)
         {
+            (App.Current as App).currentAudioPlaylistNumber = (App.Current as App).AudioPlaylistNumber3;
+            playList = (App.Current as App).currentAudioPlaylistNumber;
+
             BackgroundAudioPlayer.Instance.Rewind();
             set_AudioList_Track_number(3); // will play track 2
             BackgroundAudioPlayer.Instance.Play();

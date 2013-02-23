@@ -9,9 +9,12 @@ namespace modelOne
 {
     class LocationCheck
     {
+        string[][] firstFourBuildingsInfo;
 
-        public void startAnalysis(Geolocator sender, PositionChangedEventArgs args)
+        public string[][] startAnalysis(Geolocator sender, PositionChangedEventArgs args)
         {
+            firstFourBuildingsInfo = new String[4][];
+
             double[] geoPoint1;
             double[] geoPoint2;
             double[] geoPoint3;
@@ -27,6 +30,7 @@ namespace modelOne
             geoPoint4 = new double[2];
 
 
+           
 
 
             // 4 points algorithm usage 
@@ -39,8 +43,9 @@ namespace modelOne
             int songNumber = 1;
             int exitLoop = 0; //depends if the song starting playing in checkCoordinates function
 
+           // firstFourBuildingsInfo[0][0] = "firstLoop";
 
-            while ((songNumber < 2) && (exitLoop != 1)) // check location for each songNumber 
+            while ((songNumber < 2) && (firstFourBuildingsInfo[0] == null)) // check location for each songNumber 
             {
                 four_geoPoints = getAudioGeoPoint.getFourGeoPoints(songNumber); // for each song (represented in songNumber) read its coordinates
 
@@ -53,10 +58,11 @@ namespace modelOne
                 geoCoordinateCode = setSong.setLocationSquareFormula(geoPoint1, geoPoint2, geoPoint3, geoPoint4);
 
                 CheckGeoToPlayMusic checkUser = new CheckGeoToPlayMusic();
-                exitLoop = checkUser.checkCoordinates(sender, args, geoCoordinateCode, songNumber);
+                firstFourBuildingsInfo = checkUser.checkCoordinates(sender, args, geoCoordinateCode, songNumber);
 
                 songNumber++;
             }
+            return firstFourBuildingsInfo;
         }
 
     }

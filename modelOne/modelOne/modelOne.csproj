@@ -94,6 +94,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SelectBuildings.cs" />
     <Compile Include="Z_GeoIdentifiers\AudioGet.cs" />
     <Compile Include="Z_GeoIdentifiers\AudioSet.cs" />
     <Compile Include="Z_GeoIdentifiers\CheckGeoToPlayMusic.cs" />

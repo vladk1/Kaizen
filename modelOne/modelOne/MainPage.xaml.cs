@@ -28,6 +28,7 @@ namespace modelOne
 
     public partial class MainPage : PhoneApplicationPage
     {
+        string[][] firstFourBuildingsInfo;
 
         //GeoLocation related variables
         Geolocator geolocator = null;
@@ -85,6 +86,8 @@ namespace modelOne
 
 
             updatePlayPauseButtons();
+
+
 
             base.OnNavigatedTo(e);
         }
@@ -227,9 +230,23 @@ namespace modelOne
                 // checking and identifying if any song should be played in this particular place
                 LocationCheck locationCheck = new LocationCheck();
 
-                locationCheck.startAnalysis(sender, args);
+                firstFourBuildingsInfo = new string[4][]; // setting up an array to get information about current location
 
-               
+               firstFourBuildingsInfo =  locationCheck.startAnalysis(sender, args);
+               if (firstFourBuildingsInfo != null)
+               {
+                   item_ONE_name.Text = firstFourBuildingsInfo[0][0];
+                   item_ONE_dist.Text = firstFourBuildingsInfo[0][1];
+
+                   item_TWO_name.Text = firstFourBuildingsInfo[1][0];
+                   item_TWO_dist.Text = firstFourBuildingsInfo[1][1];
+
+                   item_THREE_name.Text = firstFourBuildingsInfo[2][0];
+                   item_THREE_dist.Text = firstFourBuildingsInfo[2][1];
+
+                   item_FOUR_name.Text = firstFourBuildingsInfo[3][0];
+                   item_FOUR_dist.Text = firstFourBuildingsInfo[3][1];
+               }
 
 
                 
@@ -326,7 +343,6 @@ namespace modelOne
             if (positionCoord != null)
             {
 
-
                 Map.Center = positionCoord;
 
                 Map.ZoomLevel = 19;
@@ -398,8 +414,9 @@ namespace modelOne
 
             if (MyOverlay != null)
                 this.PushpinMapLayer.Remove(MyOverlay);
-            
 
+            //(App.Current as App).currentAudioPlaylistNumber = 0;
+            
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/DetailedView_v2.xaml?selectedItem=" + item_ONE_name.Text, UriKind.Relative));
         }

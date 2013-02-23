@@ -129,6 +129,28 @@ namespace modelOne
             set;
         }
 
+        public int AudioPlaylistNumber1
+        {
+            get;
+            set;
+        }
+
+        public int AudioPlaylistNumber2
+        {
+            get;
+            set;
+        }
+        public int AudioPlaylistNumber3
+        {
+            get;
+            set;
+        }
+        public int AudioPlaylistNumber4
+        {
+            get;
+            set;
+        }
+
 
 
         private void CopyToIsolatedStorage()
